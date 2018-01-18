@@ -1,0 +1,8 @@
+//this means that we want to use all the latest features that javascript supports
+//2 options - latest, es2015
+
+{
+  "presets": [
+    "latest"
+  ]
+}
