@@ -4,10 +4,12 @@
   "description": "Javascript dev env starter",
   "main": "index.js",
   "scripts": {
-    "prestart":"babel-node buildScripts/startScript.js",
-    "start": "npm-run-all --parallel server",
-    "server":"babel-node buildScripts/srcServer.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "babel-node buildScripts/startScript.js",
+    "start": "npm-run-all --parallel server lint:watch",
+    "lint": "esw webpack.config.* src buildScripts --color",
+    "lint:watch": "npm run lint -- --watch",
+    "server": "babel-node buildScripts/srcServer.js",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\""
   },
   "repository": {
     "type": "git",

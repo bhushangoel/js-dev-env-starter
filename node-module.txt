@@ -1,1 +1,9 @@
+//package.json
 nsp >>  node security project to test any security vulnerability in any node module
+"npm-run-all --parallel server" >> use to run multiple scripts, currently we are running only server
+"lint":"esw webpack.config.* src buildScripts" >> should be space delimited
+
+// webpack config
+debug: true,            //enable debugging logs
+target: 'web',      //can be nodsjs|electron|web
+devTools: 'inline-source-map'     //more possible options :: https://webpack.js.org/configuration/devtool/
