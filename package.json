@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node buildScripts/startScript.js",
-    "start": "npm-run-all --parallel server lint:watch",
+    "start": "npm-run-all --parallel server lint:watch test:run",
     "lint": "esw webpack.config.* src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "server": "babel-node buildScripts/srcServer.js",
-    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\""
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
+    "test:run": "npm run test"
   },
   "repository": {
     "type": "git",

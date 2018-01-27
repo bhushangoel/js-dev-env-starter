@@ -9,11 +9,15 @@ describe("Our first test", () => {
 });
 
 describe("index.html", () => {
-    it("should say hello", () => {
+    it("should say hello", (done) => {
         //put up a reference to index.html, so that jsdom will keep that in the memory, which will be useful to run the test
-        const index = fs.readFileSync('./index.html', 'utf-8');
+        const index = fs.readFileSync('./src/index.html', 'utf-8');
         jsdom.env(index, (err, window) => {
             //virtual DOM is created in the memory by jsdom
+            const h1 = window.document.getElementsByTagName('h1')[0];
+            expect(h1.innerHTML).to.equal('Hello World !');
+            done();     //callback to tell mocha that it is now safe to output the result
+            window.close();
         })
     })
 });
