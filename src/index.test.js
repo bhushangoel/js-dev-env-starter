@@ -15,7 +15,7 @@ describe("index.html", () => {
         jsdom.env(index, (err, window) => {
             //virtual DOM is created in the memory by jsdom
             const h1 = window.document.getElementsByTagName('h1')[0];
-            expect(h1.innerHTML).to.equal('Hello World !');
+            expect(h1.innerHTML).to.equal('Products');
             done();     //callback to tell mocha that it is now safe to output the result
             window.close();
         })

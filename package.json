@@ -10,7 +10,11 @@
     "lint:watch": "npm run lint -- --watch",
     "server": "babel-node buildScripts/srcServer.js",
     "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
-    "test:run": "npm run test"
+    "test:run": "npm run test",
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all clean-dist test lint",
+    "build": "babel-node buildScripts/build.js",
+    "postbuild": "babel-node buildScripts/distServer.js"
   },
   "repository": {
     "type": "git",

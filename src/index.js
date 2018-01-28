@@ -1,5 +1,17 @@
-import numeral from 'numeral';
-import './index.css';
+import {getData} from './api/userApi';
 
-const numValue = numeral(1000).format('0,00,000.00');
-console.log(`value is ${numValue}`);
+getData('products').then(result => {
+    let tableData = '';
+
+    result.forEach(product => {
+        tableData += `<tr>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>${product.desc}</td>
+                    <td>${product.price}</td>
+                    <td>${product.quantity}</td>
+                    </tr>`
+    });
+
+    document.getElementById('products').innerHTML = tableData;
+});

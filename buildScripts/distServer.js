@@ -1,23 +1,24 @@
+/*
+ * This is a production server script, that will be used on the server to serve files from the dist folder.
+ * We need to create this on to our local machine once and then it will be pushed to the production server.
+ *
+ * */
+
+/*eslint-disable no-console*/
 import express from 'express';
 import path from 'path';
 import chalk from 'chalk';
-import webpack from 'webpack';
-import config from '../webpack.config.dev';
+import compression from 'compression';
 
-const port = '3000';
+const port = '3001';
 const app = express();
-const compiler = webpack(config);
 
-/*eslint-disable no-console*/
-
-//middleware to tell the express to use webpack
-app.use(require('webpack-dev-middleware')(compiler, {
-    ngInfo: true,
-    publicPath: config.output.publicPath
-}));
+//enabling gzip compression
+app.use(compression());
+app.use(express.static('dist'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.get('/products', (req, res) => {

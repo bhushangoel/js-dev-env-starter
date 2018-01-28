@@ -1,9 +1,18 @@
 //package.json
-nsp >>  node security project to test any security vulnerability in any node module
-"npm-run-all --parallel server" >> use to run multiple scripts, currently we are running only server
-"lint":"esw webpack.config.* src buildScripts" >> should be space delimited
+* nsp >>  node security project to test any security vulnerability in any node module
+* "npm-run-all --parallel server" >> use to run multiple scripts, currently we are running only server
+* "lint":"esw webpack.config.* src buildScripts" >> should be space delimited
+* -s argument is used for silent mode
 
 // webpack config
-debug: true,            //enable debugging logs
-target: 'web',      //can be nodsjs|electron|web
-devTools: 'inline-source-map'     //more possible options :: https://webpack.js.org/configuration/devtool/
+* debug: true,            //enable debugging logs
+* target: 'web',      //can be nodsjs|electron|web
+* devTools: 'inline-source-map'     //best for dev mode | more possible options :: https://webpack.js.org/configuration/devtool/
+* devTools: 'source-map'     //best for prod mode
+
+
++---------------------------------+
+| now we have 2 scripts           |
+| 1. srcServer >> npm start       |
+| 2. distServer >> npm build      |
++---------------------------------+
