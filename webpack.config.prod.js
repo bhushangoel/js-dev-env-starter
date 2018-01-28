@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import WebpackMD5Hash from 'webpack-md5-hash';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
     debug: true,
@@ -18,12 +20,23 @@ export default {
         publicPath: '/',
         //need to change hardcoded name to the dynamic name
         /*
-        * - filename: 'bundle.js'
-        * + filename: '[name].js'
-        * */
-        filename: '[name].js'
+         * - filename: 'bundle.js'
+         * + filename: '[name].js'
+         * */
+        //need to add md5 hash to name of bundle
+        /*
+         * - filename: '[name].js'
+         * + filename: '[name].[chunkhash].js'
+         * */
+        filename: '[name].[chunkhash].js'
     },
     plugins: [
+        //generating external css file with a hash in file name
+        new ExtractTextPlugin('[name].[contenthash].css'),
+
+        //hash the files using MD5 so that their names change when code changes
+        new WebpackMD5Hash(),
+
         //use commonsChunkPlugin for bundle splitting
         //for vendor libraries
         new webpack.optimize.CommonsChunkPlugin({
@@ -44,7 +57,10 @@ export default {
                 minifyCSS: true,
                 minifyURLs: true
             },
-            inject: true        //dynamically adding script tags to our html file
+            inject: true,        //dynamically adding script tags to our html file
+            //properties defined here will be available in index.js file
+            // via htmlWebpackPlugin.options.<varName>
+            trackJSToken: 'eba16e3019d042d6bf5ae39a40b1ce48'
         }),
         //dedupe plugin to eliminate duplicate bundles when generating build
         new webpack.optimize.DedupePlugin(),
@@ -54,7 +70,12 @@ export default {
     module: {
         loaders: [
             {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-            {test: /\.css$/, loaders: ['style', 'css']}
+            //changing css loader
+            /*
+             * - {test: /\.css$/, loaders: ['style', 'css']}
+             * + {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}  // it should generate css sourcemap
+             * */
+            {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
         ]
     }
 }

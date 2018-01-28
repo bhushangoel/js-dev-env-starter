@@ -1,4 +1,5 @@
 import {getData} from './api/userApi';
+import './index.css';
 
 getData('products').then(result => {
     let tableData = '';
