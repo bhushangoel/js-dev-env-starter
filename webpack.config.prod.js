@@ -60,7 +60,7 @@ export default {
             inject: true,        //dynamically adding script tags to our html file
             //properties defined here will be available in index.js file
             // via htmlWebpackPlugin.options.<varName>
-            trackJSToken: 'eba16e3019d042d6bf5ae39a40b1ce48'
+            trackJSToken: '<your_track_js_token>'
         }),
         //dedupe plugin to eliminate duplicate bundles when generating build
         new webpack.optimize.DedupePlugin(),
